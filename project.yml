@@ -1,0 +1,51 @@
+name: Stratus
+options:
+  deploymentTarget:
+    macOS: "14.0"
+  createIntermediateGroups: true
+configFiles:
+  Debug: Config/Signing.xcconfig
+  Release: Config/Signing.xcconfig
+packages:
+  StratusKit:
+    path: StratusKit
+settings:
+  base:
+    SWIFT_VERSION: "6.0"
+    MACOSX_DEPLOYMENT_TARGET: "14.0"
+    ENABLE_HARDENED_RUNTIME: YES
+    MARKETING_VERSION: "0.1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    DEAD_CODE_STRIPPING: YES
+targets:
+  Stratus:
+    type: application
+    platform: macOS
+    sources:
+      - path: App
+        excludes: [Info.plist, Stratus.entitlements]
+    dependencies:
+      - package: StratusKit
+      - target: StratusFileProvider
+        embed: true
+    settings:
+      base:
+        PRODUCT_NAME: Stratus
+        PRODUCT_BUNDLE_IDENTIFIER: $(STRATUS_BUNDLE_ID)
+        INFOPLIST_FILE: App/Info.plist
+        CODE_SIGN_ENTITLEMENTS: App/Stratus.entitlements
+    scheme: {}
+  StratusFileProvider:
+    type: app-extension
+    platform: macOS
+    sources:
+      - path: FileProvider
+        excludes: [Info.plist, StratusFileProvider.entitlements]
+    dependencies:
+      - package: StratusKit
+    settings:
+      base:
+        PRODUCT_NAME: StratusFileProvider
+        PRODUCT_BUNDLE_IDENTIFIER: $(STRATUS_EXTENSION_BUNDLE_ID)
+        INFOPLIST_FILE: FileProvider/Info.plist
+        CODE_SIGN_ENTITLEMENTS: FileProvider/StratusFileProvider.entitlements

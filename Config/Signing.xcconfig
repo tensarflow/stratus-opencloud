@@ -1,0 +1,7 @@
+// Every signing value lives here. To fork: change the team and the bundle id, nothing else.
+DEVELOPMENT_TEAM = QBPWS3ADVD
+CODE_SIGN_STYLE = Automatic
+STRATUS_BUNDLE_ID = com.arteq.stratus
+STRATUS_EXTENSION_BUNDLE_ID = $(STRATUS_BUNDLE_ID).FileProvider
+APP_GROUP = $(TeamIdentifierPrefix)com.arteq.stratus
+KEYCHAIN_GROUP = $(AppIdentifierPrefix)com.arteq.stratus
